@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Navbar = () => {
+const Navbar = ({ search, handleSearch }) => {
   return (
     <nav className='flex justify-around bg-violet-900 py-2 text-white'>
         <div className="logo">
@@ -10,6 +10,7 @@ const Navbar = () => {
             <li className='cursor-pointer hover:font-bold transition-all '>Home</li>
             <li className='cursor-pointer hover:font-bold transition-all '>Your Task</li>
         </ul>
+        <input type="text" value={search} onChange={handleSearch} placeholder='Search todos...' className='rounded px-2 py-1 text-black bg-amber-50'/>
     </nav>
   )
 }

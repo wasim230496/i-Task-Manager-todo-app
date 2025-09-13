@@ -11,6 +11,7 @@ import Navbar from './assets/components/Navbar'
 function App() {
   const [todo, setTodo] = useState("")
   const [todos, setTodos] = useState([])
+  const [search, setSearch] = useState("")
   const [showFinished, setshowFinished] = useState(true)
 
   useEffect(() => {
@@ -78,11 +79,15 @@ function App() {
   const toggleFinished = (e)=>{
     setshowFinished(!showFinished)
   }
-  
-
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+  }
+const filterdTodos = todos.filter(item =>
+  item.todo.toLowerCase().includes(search.toLocaleLowerCase())
+)
   return (
     <>
-      <Navbar />
+      <Navbar search={search} handleSearch = {handleSearch}/>
       <div className="container mx-auto my-5 bg-violet-200 rounded-xl p-5 min-h-[80vh] md:w-1/2">
       <h1 className='font-bold text-2xl text-center m-3'>iTask - Manage your todos at one place</h1>
         <div className="addTodo flex flex-col gap-5">
@@ -99,8 +104,8 @@ function App() {
         <div className='h-[1px] bg-black w-[90%] mx-auto opacity-15 my-3'></div>
         <h2 className='text-xl font-bold '>Your ToDos</h2>
         <div className="todos">
-          {todos.length === 0 && <div className='my-3 font-black'>Thers is No Todos to show</div>}
-          {todos.map(item => {
+          {filterdTodos.length === 0 && <div className='my-3 font-black'>Thers is No Todos to show</div>}
+          {filterdTodos.map(item => {
 
 
             return (showFinished || !item.isCompleted) && <div key={item.id} className="todo flex w-full my-4 justify-between">
